@@ -1,0 +1,61 @@
+
+  Input files
+  ======
+
+  The input values for SGPDR are specified in two separate files: SGPDR_params.txt and SGPDR_IC.txt. The contents of these two files are described below. In both cases, these are plain text files with the value of one variable (or array) specified per line. 
+  
+  SGPDR_params.txt
+  ---------------
+  Deuterium abundance
+  Carbon abundance
+  Oxygen abundance
+  "M" abundance
+  Metallicity  [solar units]
+  Dust:gas ratio [relative to local ISM value]
+  Interstellar radiation field strength [Habing units]
+  Cosmic ray ionisation rate
+
+
+The elemental abundances are the values by number, relative to hydrogen. "M" represents low ionisation potential metals (e.g. silicon, iron, nickel); adopting the elemental abundance of silicon as a representative value is usually the right choice here. The cosmic ray ionisation rate is the value for atomic hydrogen (in units of s^-1): the code calculates the corresponding values for other chemical species.
+
+  SGPDR_IC.txt
+  -----------
+  Time over which to evolve the chemistry [Unit: seconds]
+  Velocity divergence [Unit: s^-1]
+  Fractional abundances of the 9 chemical species evolved by the network [see below]
+  Initial temperature [Unit: K]
+  Slab depth [Unit: pc]
+
+ SGPDR solves for the chemical and thermal evolution of the slab over the period of time prescribed by the value on the first line of SGPDR_IC.txt, and therefore the final chemical abundances may not match the equilibrium values if this time period is shorter than the time required for the system to come to equilibrium.
+
+ The species that are directly followed in our version of the Gong et al. network are:
+
+ 1 -- H2
+ 2 -- H+
+ 3 -- C+
+ 4 -- CHx
+ 5 -- OHx
+ 6 -- CO
+ 7 -- HCO+
+ 8 -- He+
+ 9 -- M+
+
+ The fractional abundances of these species **relative to the number density of H nuclei** should be specified on line 3 of SGPDR_IC.txt as a whitespace separated list of values. The user is responsible for making sure that the values chosen here make sense (e.g. that the abundances of carbon-containing species don't add up to a value larger than the total elemental carbon abundance). The abundances of the chemical species that are followed in the model but that are not listed here (free electrons, H, C, O, He, M, H3+ and O+) can be derived assuming chemical equilibrium (for H3+, O+) and the use of the appropriate conservation laws for charge and total elemental abundance -- see the code for more details.
+
+  Output files
+  ======= 
+
+ As currently constituted, the code performs a calculation for a series of slabs with H nuclei number densities ranging from 100 cm^-3 to 1e5 cm^-3 in 0.1 dex intervals. Each slab is subdivided into 3000 equal-width slices and the chemical and thermal evolution is solved for each slice sequentially. At the end of the calculation for a given slab, the code writes out to the file 'SGPDR_output.txt' the following values for each slice in the slab:
+
+  density, slice index, abundances of the 9 directly tracked chemical species, internal energy density [in erg cm^-3], temperature
+
+The 'slice index' is an integer ranging from 1 to 3000 that denotes the slice for which the values are being output.
+
+ In addition, if the OUTPUT_MEAN_TEMPS option is selected in the config.h header file (note: this is enabled by default), the code also calculates a weighted mean temperature for the H2 in each slab. These values are weighted by the flux in the H2 0-0 S(1) line (i.e. the ground state J = 3 -> J = 1 transition). Other weighting schemes are possible and may be implemented in future releases. The mean temperatures are output to the file 'SGPDR_temps.txt' along with the corresponding slab densities, in the format:
+
+  density, mean temperature
+
+  Running the code
+  ===========
+
+  Once the input files are setup, all you have to in order to run the calculation is to build and run the SGPDR executable using the supplied Makefile. Please ensure that the required input files are located in the same directory as the executable.
