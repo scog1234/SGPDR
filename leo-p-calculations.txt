@@ -1,0 +1,24 @@
+
+  To reproduce the H2 S(1) flux-weighted temperatures plotted in Extended Data Figure 1 in Telford et al (2025), carry out the following series of steps:
+
+  1) Ensure that the preprocessor variable OUTPUT_MEAN_TEMPS is defined in config.h
+
+  2) Build the code using the supplied Makefile by typing 'make' or 'make SGPDR'.
+
+  3) Copy the Leo P IC file from the Leo-P subdirectory to the current working directory:
+
+      cp Leo-P/SGPDR_IC_telford.txt   SGPDR_IC.txt
+
+  4) Copy the desired parameter file from the Leo-P subdirectory to the current working directory. Three versions of the parameter file are available, one for the low cosmic ray ionisation rate, one for the medium value, and one for the high value. For example:
+
+      cp Leo-P/SGPDR_params_telford_lowCR.txt SGPDR_params.txt
+
+  5) Run the code:
+
+     ./SGPDR
+
+  The H2 S(1) flux-weighted temperatures will be output to the file 'SGPDR_temps.txt', along with the corresponding slab densities.
+
+  By repeating steps 4-5 of this procedure for each of the three different parameter files, you will be able to generate versions of 'SGPDR_temps.txt' for each of the different cosmic ray ionisation rates, which can then be used to generate the figure in the paper. [Note: you will need to rename or move the temperature output file after each run to avoid it being overwritten by the next run].
+
+
