@@ -1,0 +1,53 @@
+
+ SGPDR
+ =====
+
+ SGPDR is a simple code for computing the temperature and chemical structure of constant density plane-parallel photodissociation region (PDR) models. It is the code that was used for the modelling of the extremely low metallicity PDR in Leo P that was presented in Telford et al. (2025, Nature, submitted). It is made available here to permit reproduction of those calculations and also in the general hope that it may be useful to other researchers.
+
+ The chemical and thermal model implemented in SGPDR is based on the SGCHEM module developed by myself (SG) for the Arepo hydrodynamical code. The chemical network made available in this public version a modified version of the H2 and CO network presented in Gong et al. (2017), which itself is an improved version of the treatment introduced in Nelson & Langer (1999). Full details of how this modified version differs from the original Gong et al. network can be found in Hunter et al. (203).
+
+ Basic documentation on how to use the code and how to interpret the output can be found in the file 'getting-started.txt'. Full details of how to reproduce the calculations in Telford et al. can be found in the file 'leo-p-calculations.txt'.
+
+ COMPILING
+ =========
+
+ If you are using the gfortran compiler, you can compile the code simply by typing: `make' (or `make all').
+
+ If you wish to use a different compiler, you will first need to modify the makefile. Change the line:
+
+ FC = gfortran
+
+ to specify instead the name of your desired Fortran compiler. You may also wish to modify the compile flags specified by the FFLAGS variable.
+
+ Note: while compiling the file 'dvode.F', the compiler will print a series of warnings regarding the use of obsolete Fortran features (e.g. computed GOTO). These warnings are harmless and expected and should be ignored. 
+
+ VERSION
+ =======
+ The current version of SGPDR is version 1.0, released on April 1, 2025.
+
+
+ LICENSE
+ =======
+
+ SGPDR is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+ These license terms apply to all of the files making up SGPDR with the exception of the file 'dvode.F'. The code in this file is in the public domain -- see https://computing.llnl.gov/projects/odepack for details.
+
+
+ AUTHOR
+ =======
+ Simon Glover
+ Institute for Theoretical Astrophysics
+ Albert-Ueberle-Strasse 2
+ 69120 Heidelberg
+ Germany
+
+
+ REFERENCES
+ ==========
+ Gong, M., Ostriker, E., Wolfire, M., 2017, ApJ, 843, 38
+ Hunter, G., et al. 2023, MNRAS, 519, 4152
+ Nelson, R., Langer, W., 1999, ApJ, 524, 923
+ Telford, G., et al. 2025, Nature, submitted

@@ -1,0 +1,4 @@
+#define SGCHEM
+#define ABHE 0.1
+#define CHEMISTRYNETWORK 16
+#define OUTPUT_MEAN_TEMPS
