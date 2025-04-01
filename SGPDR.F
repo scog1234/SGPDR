@@ -49,8 +49,6 @@ c Strength of interstellar radiation field in Habing units
       read(10,*) G0
 c Cosmic ray ionisation rate of **atomic** hydrogen [value for H2 is ~ 2x larger]
       read(10,*) crion
-c Atomic cooling option -- set to 3 unless you know what you're doing
-      read(10,*) iatom      
       close(10, status = "keep")
 
 c A bunch of other parameters that we need to set up for the run. I don't advise
@@ -65,6 +63,7 @@ c varying these unless you know what they do
       h2kin  = 0.12d0
       AVeff  = 0d0
       iphoto = 6
+      iatom  = 3
       isrf   = 1
       iflag_h2_opacity = 0
       
